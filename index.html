@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Jokes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .joke-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #5f3dc4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>😄 Random Jokes</h1>
+        
+        <div class="joke-box" id="jokeBox">
+            Ready for a laugh? Click the button below!
+        </div>
+        
+        <button onclick="getJoke()">Get New Joke</button>
+        
+        <div style="margin-top: 30px; font-size: 0.9rem; color: #666;">
+            Made with ❤️ by sauravhhh
+        </div>
+    </div>
+
+    <script>
+        async function getJoke() {
+            const jokeBox = document.getElementById('jokeBox');
+            
+            jokeBox.innerHTML = "🔄 Getting a fresh joke...";
+            
+            try {
+                const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+                const joke = await response.json();
+                
+                jokeBox.innerHTML = `
+                    <strong>${joke.setup}</strong><br><br>
+                    <em>${joke.punchline}</em> 😂
+                `;
+                
+            } catch (error) {
+                jokeBox.innerHTML = "Oops! Couldn't get a joke. Try again! 😅";
+            }
+        }
+        
+        // Get initial joke
+        getJoke();
+    </script>
+</body>
+</html>
